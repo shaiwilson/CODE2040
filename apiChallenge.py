@@ -33,10 +33,8 @@ def getChallenge(token,url):
 This function expects a string and returns the reversed string
 """
 def reversed_string(query, token):
-	string - json.loads(query)['results']
+	string = json.loads(query)['results']
 	reverseS = string[::-1]
-	#print(string)
-	#print(reverseS)
 
 	return {'token': token, 'string': reverseS}
 
@@ -76,13 +74,14 @@ def findNeedle(query, token):
 	count = 0
 	for index in haystack:
 			if needle == index:
-			return {'token': token,'needle': count}
-		count += 1
+				return {'token': token,'needle': count}
+	count += 1
 
 def main():
 
 	#my token
 	mydata = "N1uMLlRYMt"
+	state = 1
 
 	challenge_urls = [
 	'http://challenge.code2040.org/api/getstring',
@@ -97,8 +96,6 @@ def main():
         'http://challenge.code2040.org/api/validatetime',
         'http://challenge.code2040.org/api/validateneedle'
     ]
-
-    state = 1
 
 	if state == 1:
 	    query = getChallenge(mydata, challenge_urls[0])
