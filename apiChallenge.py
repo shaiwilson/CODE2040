@@ -7,6 +7,7 @@
 
 import json
 import requests
+from datetime import datetime, timedelta
 
 def validateChallenge(info, url):
     headers = {'content-type': 'application/json', "Accept": 'application/json'}
@@ -53,10 +54,18 @@ def prefix(query, token):
 
 	print new_array
 
-	#return {'token': token, 'array': new_array}
+	return {'token': token, 'array': new_array}
 
 
-#def datingGame(query, token):
+def datingGame(query, token):
+	result = json.loads(data)['result']
+    datestamp = result['datestamp']
+    interval = result['interval']
+    new_date = timedelta(0,interval) + date
+    date = datetime.strptime(datestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
+    new_date_formatted = new_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "Z"
+
+    return {'token':token, 'datestamp':new_date_formatted}
 
 def findNeedle(query, token):
 	json_data = json.loads(query)
@@ -65,7 +74,9 @@ def findNeedle(query, token):
     count = 0
     for index in haystack:
         if needle == index:
+
             return {'token': token,'needle': count}
+
         count += 1
 
 def main():
@@ -94,7 +105,6 @@ def main():
 	elif state == 4:
 	    query = getChallenge(mydata,challenge_urls[3])
 	    result = findNeedle(query, mydata)
-
 
 
 if __name__ == "__main__":
