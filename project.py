@@ -9,3 +9,4 @@ resp = requests.post('http://challenge.code2040.org/api/register', json = shaida
 mytoken = resp.text
 print(mytoken)
 
+#{"result":"N1uMLlRYMt"}

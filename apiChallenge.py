@@ -30,7 +30,7 @@ def getChallenge(token,url):
 
 
 """
-	This function expects a string and returns the reversed string
+This function expects a string and returns the reversed string
 """
 def reversed_string(query, token):
 	string - json.loads(query)['results']
@@ -41,7 +41,7 @@ def reversed_string(query, token):
 	return {'token': token, 'string': reverseS}
 
 """
-	This function expects a dictionary and returns an array of strings that do not contain the prefix
+This function expects a dictionary and returns an array of strings that do not contain the prefix
 """
 
 def prefix(query, token):
@@ -52,41 +52,32 @@ def prefix(query, token):
 	for index in array:
 		if index.startswith(prefix, 0, len(prefix) == False):
 			new_array.append(index)
-
-	print new_array
-
-	return {'token': token, 'array': new_array}
-
-"""
-	This function expects a dict for datestamp in a string format. 
-"""
+	#return {'token': token, 'array': new_array}
 
 def datingGame(query, token):
-	result = json.loads(data)['result']
-    datestamp = result['datestamp']
-    interval = result['interval']
-    new_date = timedelta(0,interval) + date
-    date = datetime.strptime(datestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
-    new_date_formatted = new_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "Z"
+	result = json.loads(query)['result']
+	datestamp = result['datestamp']
+	interval = result['interval']
+	new_date = timedelta(0,interval) + date
+	date = datetime.strptime(datestamp, '%Y-%m-%dT%H:%M:%S.%fZ')
+	new_date_formatted = new_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "Z"
 
-    return {'token':token, 'datestamp':new_date_formatted}
+	return {'token':token, 'datestamp':new_date_formatted}
 
 """
-	This function expects a dictionary with two values and keys. The first value, a needle and the second a haystack, an array of strings.
-	First, locate the needle in the 'haystack' (array). Then return the position (count), of the needle. 
+This function expects a dictionary with two values and keys. The first value, a needle and the second a haystack, an array of strings.
+First, locate the needle in the 'haystack' (array). Then return the position (count), of the needle. 
 """
 
 def findNeedle(query, token):
 	json_data = json.loads(query)
-    needle = json_data['result']['needle']
-    haystack = json_data['result']['haystack']
-    count = 0
-    for index in haystack:
-        if needle == index:
-
-            return {'token': token,'needle': count}
-
-        count += 1
+	needle = json_data['result']['needle']
+	haystack = json_data['result']['haystack']
+	count = 0
+	for index in haystack:
+			if needle == index:
+			return {'token': token,'needle': count}
+		count += 1
 
 def main():
 
@@ -106,6 +97,8 @@ def main():
         'http://challenge.code2040.org/api/validatetime',
         'http://challenge.code2040.org/api/validateneedle'
     ]
+
+    state = 1
 
 	if state == 1:
 	    query = getChallenge(mydata, challenge_urls[0])
