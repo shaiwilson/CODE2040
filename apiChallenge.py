@@ -72,7 +72,8 @@ def datingGame(query, token):
     return {'token':token, 'datestamp':new_date_formatted}
 
 """
-	This function expects a dictionary and returns an array of strings that do not contain the prefix
+	This function expects a dictionary with two values and keys. The first value, a needle and the second a haystack, an array of strings.
+	First, locate the needle in the 'haystack' (array). Then return the position (count), of the needle. 
 """
 
 def findNeedle(query, token):
