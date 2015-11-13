@@ -8,7 +8,7 @@
 import json
 import requests
 
-def validatechallenge(info, url):
+def validateChallenge(info, url):
     headers = {'content-type': 'application/json', "Accept": 'application/json'}
     resp = requests.post('http://challenge.code2040.org/api/register', json = info, headers = headers)
     output = resp.text
@@ -33,10 +33,10 @@ def getChallenge(token,url):
 def reversed_string(query, token):
 	string - json.loads(query)['results']
 	reverseS = string[::-1]
-	print(string)
-	print(reverseS)
+	#print(string)
+	#print(reverseS)
 
-	#return {'token': token, 'string': reverseS}
+	return {'token': token, 'string': reverseS}
 
 """
 	This function expects a dictionary and returns an array of strings that do not contain the prefix
@@ -58,7 +58,15 @@ def prefix(query, token):
 
 #def datingGame(query, token):
 
-#def findNeedle(query, token):
+def findNeedle(query, token):
+	json_data = json.loads(query)
+    needle = json_data['result']['needle']
+    haystack = json_data['result']['haystack']
+    count = 0
+    for index in haystack:
+        if needle == index:
+            return {'token': token,'needle': count}
+        count += 1
 
 def main():
 
@@ -70,8 +78,6 @@ def main():
 	'http://challenge.code2040.org/api/time',
 	'http://challenge.code2040.org/api/haystack',
 	]
-
-	state = raw_input()
 
 	if state == 1:
 	    query = getChallenge(mydata, challenge_urls[0])
