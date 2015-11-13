@@ -2,9 +2,10 @@
 # Author : Shai Wilson
 # Email: Sjwilson2@usfca.edu
 # This challenge is split into two parts
-# Part one: registration
+# Part one: registration -- project.py
 # Part two: four challenges
 
+# imports
 import json
 import requests
 from datetime import datetime, timedelta
@@ -56,6 +57,9 @@ def prefix(query, token):
 
 	return {'token': token, 'array': new_array}
 
+"""
+	This function expects a dict for datestamp in a string format. 
+"""
 
 def datingGame(query, token):
 	result = json.loads(data)['result']
@@ -66,6 +70,10 @@ def datingGame(query, token):
     new_date_formatted = new_date.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + "Z"
 
     return {'token':token, 'datestamp':new_date_formatted}
+
+"""
+	This function expects a dictionary and returns an array of strings that do not contain the prefix
+"""
 
 def findNeedle(query, token):
 	json_data = json.loads(query)
@@ -81,6 +89,7 @@ def findNeedle(query, token):
 
 def main():
 
+	#my token
 	mydata = "N1uMLlRYMt"
 
 	challenge_urls = [
@@ -89,6 +98,13 @@ def main():
 	'http://challenge.code2040.org/api/time',
 	'http://challenge.code2040.org/api/haystack',
 	]
+
+	validation_urls= [
+        'http://challenge.code2040.org/api/validatestring',
+        'http://challenge.code2040.org/api/validateprefix',
+        'http://challenge.code2040.org/api/validatetime',
+        'http://challenge.code2040.org/api/validateneedle'
+    ]
 
 	if state == 1:
 	    query = getChallenge(mydata, challenge_urls[0])
